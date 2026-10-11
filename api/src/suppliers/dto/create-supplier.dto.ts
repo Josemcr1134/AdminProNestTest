@@ -1,0 +1,15 @@
+import { IsString, IsEmail, IsOptional } from "class-validator";
+
+export class CreateSupplierDto {
+  @IsString()
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsOptional()
+  @IsString()
+  phone?: string;
+
+
+}
