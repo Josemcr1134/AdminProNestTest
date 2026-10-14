@@ -28,7 +28,7 @@ export class ProductsService {
   async findAll(q: QueryProductDto) {
     const where: Prisma.ProductWhereInput = {
       ...(q.categoryId && { categoryId: q.categoryId }),
-      ...(q.isActive !== undefined && { isActive: q.isActive }),
+      ...(q.active !== undefined && { active: q.active }),
       ...((q.minPrice !== undefined || q.maxPrice !== undefined) && {
         price: { gte: q.minPrice, lte: q.maxPrice },
       }),
@@ -77,9 +77,9 @@ export class ProductsService {
     }
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
     try {
-      return this.prisma.product.update({ where: { id }, data: updateProductDto });
+      return await this.prisma.product.update({ where: { id }, data: updateProductDto });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
         throw new NotFoundException(`Product with ID ${id} not found`);

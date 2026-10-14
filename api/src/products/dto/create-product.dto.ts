@@ -15,7 +15,7 @@ export class CreateProductDto {
   stock: number;
 
   @IsOptional() @IsBoolean()
-  isActive?: boolean;
+  active?: boolean;
 
   @IsInt()
   categoryId: number;

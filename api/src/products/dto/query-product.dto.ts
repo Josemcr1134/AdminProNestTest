@@ -32,5 +32,5 @@ export class QueryProductDto {
     if (value === 'false') return false;
     return value;
   })
-  isActive?: boolean;
+  active?: boolean;
 }
