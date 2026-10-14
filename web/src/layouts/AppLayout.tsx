@@ -17,18 +17,21 @@ import {
 } from '@mui/material';
 import { NavLink, Outlet } from 'react-router';
 import { useAuth } from '../auth/AuthContext';
+import PeopleIcon from '@mui/icons-material/People';
 
 const DRAWER_WIDTH = 200;
 
 const links = [
   { to: '/', label: 'Dashboard', icon: <DashboardIcon /> },
   { to: '/products', label: 'Productos', icon: <InventoryIcon /> },
-  { to: '/categories', label: 'Categorias', icon: <CategoryIcon /> }
+  { to: '/categories', label: 'Categorias', icon: <CategoryIcon /> },
+  { to: '/users', label: 'Usuarios', icon: <PeopleIcon /> , roles: ['ADMIN'] }
 ];
 
 export function AppLayout() {
 
   const { user, logout } = useAuth();
+  const availablesLinks = links.filter((l) => !l.roles || l.roles.includes(user!.role));
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -54,7 +57,7 @@ export function AppLayout() {
       >
         <Toolbar />
         <List>
-          {links.map((link) => (
+          {availablesLinks.map((link) => (
             <ListItemButton key={link.to} component={NavLink} to={link.to} end={link.to === '/'}>
               <ListItemIcon>{link.icon}</ListItemIcon>
               <ListItemText primary={link.label} />

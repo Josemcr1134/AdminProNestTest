@@ -35,6 +35,7 @@ export function getErrorMessage(error: unknown): string {
     if (typeof message === 'string') return message;
   }
 
+  if (axios.isAxiosError(error) && !error.response) return 'No se pudo conectar con el servidor';
   return 'Ocurrió un error inesperado';
 };
 

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, Box, Button, Card, CardContent, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardContent, TextField, Typography, Link as MuiLink } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { Navigate, useLocation, useNavigate } from 'react-router';
@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useAuth } from '../auth/AuthContext';
 import { api, getErrorMessage } from '../lib/api';
 import type { AuthResponse } from '../lib/types';
-
+import { Link as RouterLink } from 'react-router';
 
 const loginSchema = z.object({
   email: z.email('Email inválido'),
@@ -72,6 +72,12 @@ export function LoginPage() {
             <Button type="submit" variant="contained" size="large" loading={loginMutation.isPending}>
               Entrar
             </Button>
+            <Typography variant="body2" align="center">
+              ¿No tienes cuenta?{' '}
+              <MuiLink component={RouterLink} to="/register">
+                Regístrate
+              </MuiLink>
+            </Typography>
           </Box>
         </CardContent>
       </Card>
